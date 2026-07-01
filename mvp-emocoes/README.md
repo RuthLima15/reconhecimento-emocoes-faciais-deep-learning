@@ -43,9 +43,3 @@ Aplicação desenvolvida em Streamlit permitindo:
 - Predição da emoção
 - Histórico das predições
 - Armazenamento das interações em SQLite
-
-## Artigos utilizados
-
-- Akhand et al. (2021)
-- Costa et al. (2024)
-- Lima (2023)

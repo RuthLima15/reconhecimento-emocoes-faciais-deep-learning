@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from datetime import datetime
 
@@ -15,7 +16,6 @@ st.set_page_config(
     page_icon="🙂",
     layout="wide"
 )
-
 
 CLASS_NAMES = [
     "angry", "disgust", "fear", "happy", "neutral", "sad", "surprise"
@@ -44,7 +44,11 @@ EMOJIS = {
 
 @st.cache_resource
 def carregar_modelo():
-    return tf.keras.models.load_model("modelo_mobilenetv2_emocoes.keras")
+    caminho_modelo = os.path.join(
+        os.path.dirname(__file__),
+        "modelo_mobilenetv2_emocoes.keras"
+    )
+    return tf.keras.models.load_model(caminho_modelo)
 
 
 def criar_banco():
@@ -93,7 +97,7 @@ def listar_interacoes():
 
 def preparar_imagem(imagem):
     imagem = imagem.convert("RGB")
-    imagem = imagem.resize((224, 224))
+    imagem = imagem.resize((224, 224))  # use 96x96 se seu modelo for 96
 
     img_array = np.array(imagem)
     img_array = np.expand_dims(img_array, axis=0)
@@ -151,7 +155,6 @@ if arquivo is not None:
 
     with col_resultado:
         img_processada = preparar_imagem(imagem)
-
         predicao = modelo.predict(img_processada)
 
         indice = np.argmax(predicao)
@@ -169,10 +172,27 @@ if arquivo is not None:
             f"{EMOJIS[emocao_pt]} {emocao_pt}"
         )
 
-        st.metric(
-            "Confiança",
-            f"{confianca:.2%}"
-        )
+        if confianca >= 0.80:
+            st.success(f"Confiança alta: {confianca:.2%}")
+        elif confianca >= 0.60:
+            st.info(f"Confiança moderada: {confianca:.2%}")
+        else:
+            st.warning(
+                f"Confiança baixa: {confianca:.2%}. "
+                "O resultado pode não representar corretamente a emoção detectada."
+            )
+
+        st.subheader("Top 3 emoções detectadas")
+
+        top3 = np.argsort(predicao[0])[::-1][:3]
+
+        for i in top3:
+            emocao_top = TRADUCAO[CLASS_NAMES[i]]
+            st.write(
+                f"{EMOJIS[emocao_top]} "
+                f"**{emocao_top}** - "
+                f"{predicao[0][i]:.2%}"
+            )
 
     st.subheader("Probabilidade de cada emoção")
 

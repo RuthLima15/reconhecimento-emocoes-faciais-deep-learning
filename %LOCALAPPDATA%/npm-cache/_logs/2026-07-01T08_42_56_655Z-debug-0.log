@@ -1,0 +1,19 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.2
+2 info using node@v24.12.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:c:\Users\ruthl\.npmrc
+5 error config prefix cannot be changed from project config: c:\Users\ruthl\.npmrc.
+6 silly config load:file:C:\Users\ruthl\.npmrc
+7 silly config load:file:C:\Users\ruthl\AppData\Roaming\npm\etc\npmrc
+8 verbose title npm config get prefix
+9 verbose argv "config" "get" "prefix"
+10 verbose logfile logs-max:10 dir:c:\Users\ruthl\Desktop\reconhecimento-emocoes-faciais-deep-learning\%LOCALAPPDATA%\npm-cache\_logs\2026-07-01T08_42_56_655Z-
+11 verbose logfile c:\Users\ruthl\Desktop\reconhecimento-emocoes-faciais-deep-learning\%LOCALAPPDATA%\npm-cache\_logs\2026-07-01T08_42_56_655Z-debug-0.log
+12 silly logfile done cleaning log files
+13 verbose cwd c:\Users\ruthl\Desktop\reconhecimento-emocoes-faciais-deep-learning
+14 verbose os Windows_NT 10.0.19045
+15 verbose node v24.12.0
+16 verbose npm  v11.6.2
+17 verbose exit 0
+18 info ok
